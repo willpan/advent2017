@@ -1,0 +1,73 @@
+;; gorilla-repl.fileformat = 1
+
+;; **
+;;; # Gorilla REPL
+;;; 
+;;; Welcome to gorilla :-)
+;;; 
+;;; Shift + enter evaluates code. Hit ctrl+g twice in quick succession or click the menu icon (upper-right corner) for more commands ...
+;;; 
+;;; It's a good habit to run each worksheet in its own namespace: feel free to use the declaration we've provided below if you'd like.
+;; **
+
+;; @@
+(ns advent
+  (:require [clojure.string :as str]))
+
+(defn input [n]
+  (str/trim (slurp (str "inputs/day" n ".txt"))))
+
+(defn parse-int [s]
+  (Integer/parseInt (str s)))
+
+(defn assert-eq [a b]
+  (assert (= a b)))
+;; @@
+;; =>
+;;; {"type":"html","content":"<span class='clj-var'>#&#x27;advent/assert-eq</span>","value":"#'advent/assert-eq"}
+;; <=
+
+;; **
+;;; # Day 1
+;;; 
+;; **
+
+;; @@
+(defn captcha-1
+  "Calculate the captcha of a text string by summing up
+  chars that are followed by the same character, wrapping
+  around the first character."
+  [text]
+  (->> (str text (first text))
+       (map parse-int)
+       (partition 2 1)
+       (filter #(apply = %))
+       (map first)
+       (reduce +)))
+  
+(assert-eq (captcha-1 "1122") 3)
+(assert-eq (captcha-1 "1111") 4)
+(assert-eq (captcha-1 "1234") 0)
+(assert-eq (captcha-1 "91212129") 9)
+
+
+(captcha-1 (input 1))
+;; @@
+;; =>
+;;; {"type":"html","content":"<span class='clj-long'>1175</span>","value":"1175"}
+;; <=
+
+;; @@
+
+;; @@
+;; =>
+;;; {"type":"list-like","open":"<span class='clj-vector'>[</span>","close":"<span class='clj-vector'>]</span>","separator":" ","items":[{"type":"list-like","open":"<span class='clj-lazy-seq'>(</span>","close":"<span class='clj-lazy-seq'>)</span>","separator":" ","items":[{"type":"html","content":"<span class='clj-long'>1</span>","value":"1"},{"type":"html","content":"<span class='clj-long'>2</span>","value":"2"}],"value":"(1 2)"},{"type":"list-like","open":"<span class='clj-lazy-seq'>(</span>","close":"<span class='clj-lazy-seq'>)</span>","separator":" ","items":[{"type":"html","content":"<span class='clj-long'>2</span>","value":"2"},{"type":"html","content":"<span class='clj-long'>3</span>","value":"3"}],"value":"(2 3)"}],"value":"[(1 2) (2 3)]"}
+;; <=
+
+;; @@
+(sum 1 1)
+;; @@
+
+;; @@
+
+;; @@
